@@ -52,12 +52,12 @@ class EngineWindow {
         }
 
         //Стак для следующего фрейма
-        try(MemoryStack mem = MemoryStack.stackPush()){
+        try{
+            MemoryStack mem = MemoryStack.stackPush()
             //Упаковка в буфера размеров окна
             this.bufferdWidth = BufferUtils.createIntBuffer(1);
             this.bufferdHeight = BufferUtils.createIntBuffer(1);
             GLFW.glfwGetWindowSize(this.id, this.bufferdWidth,this.bufferdHeight);
-
 
         }catch(Exception e){
 
@@ -79,6 +79,7 @@ class EngineWindow {
         //Привязка контекста к текущему окну
         GLFW.glfwMakeContextCurrent(this.id);
         GL.createCapabilities();
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
 
         //Зона отображения
         GL11.glViewport(0, 0, this.bufferdWidth.get(), this.bufferdHeight.get())

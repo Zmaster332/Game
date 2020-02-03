@@ -1,4 +1,5 @@
 import engine.EngineWindow
+import engine.Texture
 import input.Keyboard
 import engine.EngineWindow
 import input.Mouse
@@ -9,7 +10,9 @@ import org.lwjgl.system.MemoryUtil
 
 import java.nio.FloatBuffer
 
-class Engine {
+import static org.lwjgl.glfw.GLFW.glfwSwapBuffers
+
+class  Engine {
 
     //Размеры создаваемого окна
     public static  final int WIDTH = 1200;
@@ -47,6 +50,13 @@ class Engine {
             0.5f, -0.5f, 0f,
         ];
 
+        Texture tex = new Texture("./images/hero.png");
+
+
+
+
+
+/*
         //Создадим Vao - набор координат объектов
         int vaoId = GL30.glGenVertexArrays();
 
@@ -62,7 +72,7 @@ class Engine {
         MemoryUtil.memFree(buffer); //Очистка буфера
         GL30.glBindBuffer(GL30.GL_ARRAY_BUFFER, vboId);    //Развязать буфер, чтобы оставить
         GL30.glBindVertexArray(vaoId)    //Развязать объекты, чтобы оставить
-
+*/
 
 
         while(!this.engineWindow.isCloseRequest()){
@@ -71,10 +81,26 @@ class Engine {
             Mouse.handleMouseInput();
 
             //Очистка экрана перед рендером изображения зеленым
-            GL11.glClearColor(0,1,0, 1);
+            GL11.glClearColor(0,0,0, 1);
             GL11.glClear(GL11.GL_COLOR_BUFFER_BIT);
 
-            //Отрисовка
+            tex.bind();
+
+            GL11.glBegin(GL11.GL_QUADS)
+                    GL11.glTexCoord2f(0,0);
+                    GL11.glVertex2f(-0.5f,0.5f);
+                    GL11.glTexCoord2f(1,0);
+                    GL11.glVertex2f(0.5f,0.5f);
+                    GL11.glTexCoord2f(1,1);
+                    GL11.glVertex2f(0.5f,-0.5f);
+                    GL11.glTexCoord2f(0,1);
+                    GL11.glVertex2f(-0.5f,-0.5f);
+            GL11.glEnd();
+
+
+
+
+            /*//Отрисовка
             GL30.glBindVertexArray(vaoId);
             GL30.glEnableVertexAttribArray(0)
 
@@ -83,7 +109,7 @@ class Engine {
 
             GL30.glDisableVertexAttribArray(0);
             GL30.glBindVertexArray(vaoId);
-
+*/
 
             this.engineWindow.update();
             //рендеринг
