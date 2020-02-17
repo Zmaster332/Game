@@ -4,7 +4,7 @@ import input.Keyboard
 import engine.EngineWindow
 import input.Mouse
 import org.lwjgl.glfw.GLFW
-import org.lwjgl.opengl.GL11
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL30
 import org.lwjgl.system.MemoryUtil
 
@@ -16,7 +16,7 @@ class  Engine {
 
     //Размеры создаваемого окна
     public static  final int WIDTH = 1200;
-    public static final int HEIGHT = 675;
+    public static final int HEIGHT = 960;
     public static final String TITLE = 'Engine 0.0.1 pre-alpha';
     public EngineWindow engineWindow;
 
@@ -43,14 +43,11 @@ class  Engine {
     //Обновление
     public void update(){
 
-        //Координаты
-        float [] v_position = [
-            0.0f, 0.5f, 0f,
-            -0.5f, -0.5f, 0f,
-            0.5f, -0.5f, 0f,
-        ];
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
 
-        Texture tex = new Texture("./images/hero.png");
+
+        Texture tex = new Texture("./images/back.png", WIDTH, HEIGHT, 0, 0);
+        Texture tex2 = new Texture("./images/hero.png", 100, 100, 100, 100);
 
 
 
@@ -86,16 +83,34 @@ class  Engine {
 
             tex.bind();
 
+
+
+
             GL11.glBegin(GL11.GL_QUADS)
                     GL11.glTexCoord2f(0,0);
-                    GL11.glVertex2f(-0.5f,0.5f);
+                    GL11.glVertex2f(-1f,1f);
                     GL11.glTexCoord2f(1,0);
-                    GL11.glVertex2f(0.5f,0.5f);
+                    GL11.glVertex2f(1, 1);
                     GL11.glTexCoord2f(1,1);
-                    GL11.glVertex2f(0.5f,-0.5f);
+                    GL11.glVertex2f(1f,-1f);
                     GL11.glTexCoord2f(0,1);
-                    GL11.glVertex2f(-0.5f,-0.5f);
+                    GL11.glVertex2f(-1f,-1f);
             GL11.glEnd();
+
+
+            tex2.bind();
+
+            GL11.glBegin(GL11.GL_QUADS)
+            GL11.glTexCoord2f(0,0);
+            GL11.glVertex2f(-0.5f,0.5f);
+            GL11.glTexCoord2f(1,0);
+            GL11.glVertex2f(0.5f, 0.5f);
+            GL11.glTexCoord2f(1,1);
+            GL11.glVertex2f(0.5f,-0.5f);
+            GL11.glTexCoord2f(0,1);
+            GL11.glVertex2f(-0.5f,-0.5f);
+            GL11.glEnd();
+
 
 
 
