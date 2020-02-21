@@ -1,5 +1,6 @@
 package engine
 
+
 import org.lwjgl.opengl.GL11
 
 import static org.lwjgl.opengl.GL11.*;
@@ -18,8 +19,11 @@ public class Texture {
     private int height;
     private int xPos;
     private int yPos;
+    public static int sWidth;
+    public static int sHeight;
 
-    public Texture(String filename, int width, int height, int xPos, int yPos){
+
+    public Texture( byte [] img, int width, int height, int xPos, int yPos){
 
         BufferedImage bi;
         try{
@@ -29,7 +33,9 @@ public class Texture {
             this.width = width;
             this.height = height;
 
-            bi = ImageIO.read(new File(filename));
+            bi = ImageIO.read(new ByteArrayInputStream(img));
+
+           // bi = ImageIO.read(new File(filename));
             //width = bi.getWidth();
             //height = bi.getHeight();
 
@@ -98,6 +104,9 @@ public class Texture {
             glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 
             GL11.glTexImage2D(GL_TEXTURE_2D, 0 , GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, pixels)
+
+            sWidth = width;
+            sHeight = height;
 
 
         }catch(IOException e){
